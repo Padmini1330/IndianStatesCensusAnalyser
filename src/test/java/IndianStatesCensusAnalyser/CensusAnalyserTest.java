@@ -17,7 +17,8 @@ public class CensusAnalyserTest
 	private static final String INDIAN_STATE_CODES = "./src/test/resources/IndianStateCodes.csv";
 	private static final String INDIAN_STATE_CODES_WITH_WRONG_FILEPATH = "./src/main/resources/IndianStateCodes.csv"; 	
 	private static final String INDIAN_STATE_CODES_WITH_WRONG_FILE_FORMAT = "./src/test/resources/IndianStateCodesWithWrongFormat.txt";
-	private static final String INDIAN_STATE_CODES_WITH_WRONG_DELIMITER = "./src/test/resources/CensusDataWithWrongDelimiter.csv";
+	private static final String INDIAN_STATE_CODES_WITH_WRONG_DELIMITER = "./src/test/resources/IndianStateCodesWithWrongDelimiter.csv";
+	
 	
   	StateCensusAnalyser censusAnalyser = new StateCensusAnalyser();
 	ExpectedException exceptionRule = ExpectedException.none();
