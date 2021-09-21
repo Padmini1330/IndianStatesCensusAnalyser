@@ -40,9 +40,10 @@ public class StateCensusAnalyser
 	    {
 	    	throw new CensusAnalyserException(e.getMessage(), ExceptionType.CENSUS_FILE_PROBLEM);
 	    }
-	    catch(RuntimeException e) 
+	    catch(RuntimeException e)
 	    {
-	    	throw new CensusAnalyserException("CSV File Must Have Comma As Delimiter Or Has Incorrect Header", ExceptionType.CENSUS_WRONG_DELIMITER_OR_WRONG_HEADER);
+	    	throw new CensusAnalyserException(e.getMessage(), ExceptionType.CENSUS_WRONG_DELIMITER_OR_HEADER);
 	    }
+	    
 	}
 }
