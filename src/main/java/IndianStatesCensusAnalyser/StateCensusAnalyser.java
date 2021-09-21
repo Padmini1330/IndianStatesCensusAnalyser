@@ -9,9 +9,40 @@ import java.util.Iterator;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
-
+import IndianStatesCensusAnalyser.CensusAnalyserException.ExceptionType;
 
 public class StateCensusAnalyser 
 {
-	 
+	 public int loadIndianCensusData(String csvFilePath) throws CensusAnalyserException 
+	 {
+
+	    try 
+	    {
+	    	if(csvFilePath.contains(".txt")) 
+	    	{
+    			throw new CensusAnalyserException("File must be in CSV Format", ExceptionType.CENSUS_INCORRECT_FILE_FORMAT);
+    		}
+    		Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
+    		CsvToBeanBuilder<CSVStateCensus> csvToBeanBuilder = new CsvToBeanBuilder<CSVStateCensus>(reader);
+    		csvToBeanBuilder.withType(CSVStateCensus.class);
+    		csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
+    		CsvToBean<CSVStateCensus> csvToBean = csvToBeanBuilder.build();
+    		Iterator<CSVStateCensus> censusCSVIterator = csvToBean.iterator();
+    		int numberOfEntries = 0;
+    		while(censusCSVIterator.hasNext()) 
+    		{
+    			numberOfEntries++;
+    			CSVStateCensus censusData = censusCSVIterator.next();
+    		}
+    		return numberOfEntries;		
+	    }
+	    catch(IOException e) 
+	    {
+	    	throw new CensusAnalyserException(e.getMessage(), ExceptionType.CENSUS_FILE_PROBLEM);
+	    }
+	    catch(RuntimeException e) 
+	    {
+	    	throw new CensusAnalyserException("CSV File Must Have Comma As Delimiter Or Has Incorrect Header", ExceptionType.CENSUS_WRONG_DELIMITER_OR_WRONG_HEADER);
+	    }
+	}
 }
