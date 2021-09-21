@@ -15,7 +15,7 @@ public class CensusAnalyserTest
 	private static final String CSV_WITH_INCORRECT_HEADER = "./src/test/resources/CensusDataIncorrectHeader.csv";
 	
 	private static final String INDIAN_STATE_CODES = "./src/test/resources/IndianStateCodes.csv";
-	  	
+	private static final String INDIAN_STATE_CODES_WITH_WRONG_FILEPATH = "./src/main/resources/IndianStateCodes.csv"; 	
   	
   	StateCensusAnalyser censusAnalyser = new StateCensusAnalyser();
 	ExpectedException exceptionRule = ExpectedException.none();
@@ -108,5 +108,20 @@ public class CensusAnalyserTest
         	e.printStackTrace();
         }
     }
+    
+    @Test
+	public void givenIndianStateCodeCSVFile_WhenIncorrect_ShouldThrowException() 
+    {
+		try 
+		{
+			exceptionRule.expect(CensusAnalyserException.class);
+			censusAnalyser.loadIndianCensusData(INDIAN_STATE_CODES_WITH_WRONG_FILEPATH);
+		} 
+		catch (CensusAnalyserException e) 
+		{
+			Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
+			e.printStackTrace();
+		}
+	}
     
 }
